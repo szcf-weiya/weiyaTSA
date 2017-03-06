@@ -6,7 +6,7 @@
 # Given Auto-Covariance Function to determine the parameter of ARMA model
 #
 
-myacf2arma <- function(x, p, q)
+acf2arma <- function(x, p, q)
 {
   #if(!missing(order))
   #  if(!is.numeric(order) || length(order) != 2L || any(order < 0))
@@ -16,6 +16,7 @@ myacf2arma <- function(x, p, q)
     YW[i,] <- x[seq(q+i,length.out = p,by=-1)]
   b <- x[seq(q+2,length.out = p,by=1)]
   a <- solve(YW,matrix(b))
+  ARcoeff = a
   a <- rbind(-1, a)
   # gamma_y
   gamma_y = c(0:q)
@@ -55,4 +56,9 @@ myacf2arma <- function(x, p, q)
   PI <- Omegak %*% solve(GammaK) %*% t(Omegak)
   sigma2 <- gamma_y[1] - t(C) %*% PI %*% C
   bq <- (as.matrix(gamma_y[-1]) - A %*% PI %*% C)/as.numeric(sigma2)
+
+  res <- list(ARcoeff = ARcoeff,
+              MAcoeff = bq,
+              VarNoise = sigma2)
+  res
 }
