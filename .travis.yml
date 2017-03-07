@@ -10,10 +10,6 @@ env:
      - R_CHECK_ARGS="--no-manual --as-cran"
      - _R_CHECK_FORCE_SUGGESTS_="false"
 
-   matrix:
-     - NOT_CRAN="true"
-     - NOT_CRAN="false"
-
 before_install:
 #http://www.r-tutor.com/gpu-computing/cuda-installation/cuda7.0-ubuntu
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
